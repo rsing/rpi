@@ -15,10 +15,10 @@ for pin in pins:
     gpio.setup(pin, gpio.OUT)
     gpio.setup(pin, gpio.LOW)
 
-for i in range(5):
-    time.sleep(random.random())
+for i in range(50):
     for pin in pins:
+        time.sleep(random.random())
         gpio.output(pin, gpio.HIGH)
-    time.sleep(random.random())
     for pin in pins:
+        time.sleep(random.random())
         gpio.output(pin, gpio.LOW)
