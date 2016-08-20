@@ -11,4 +11,4 @@ pins = {
 
 for pin in pins:
     gpio.setup(pin, gpio.OUT)
-    gpio.setup(pin, gpio.LOW)
+    gpio.setup(pin, gpio.HIGH)
