@@ -1,5 +1,6 @@
 import RPi.GPIO as gpio
 import time
+import random
 from flask import Flask
 
 app=Flask(__name__)
@@ -15,9 +16,9 @@ for pin in pins:
     gpio.setup(pin, gpio.LOW)
 
 for i in range(5):
-    time.sleep(0.3)
+    time.sleep(random.rand())
     for pin in pins:
         gpio.output(pin, gpio.HIGH)
-    time.sleep(0.3)
+    time.sleep(random.rand())
     for pin in pins:
         gpio.output(pin, gpio.LOW)
