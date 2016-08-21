@@ -36,7 +36,8 @@ def crazy_action2():
 
 @app.route("/off")
 def turn_off():
-    gpio.cleanup()
+    for pin in pins:
+        gpio.output(pin, gpio.LOW)
 
 # Blink uncontrollably
 def blink_uncontrollably(delay_factor):
@@ -47,7 +48,7 @@ def blink_uncontrollably(delay_factor):
         for pin in pins:
             time.sleep(random.random()/delay_factor)
             gpio.output(pin, gpio.LOW)
-    gpio.cleanup()
+    #gpio.cleanup()
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
