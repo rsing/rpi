@@ -33,6 +33,10 @@ def crazy_action1():
 def crazy_action2():
     blink_uncontrollably(3.0)
 
+@app.route("/off")
+def turn_off():
+    gpio.cleanup()
+
 # Blink uncontrollably
 def blink_uncontrollably(delay_factor):
     for i in range(50):
@@ -42,5 +46,4 @@ def blink_uncontrollably(delay_factor):
         for pin in pins:
             time.sleep(random.random()/delay_factor)
             gpio.output(pin, gpio.LOW)
-    for pin in pins:
-        gpio.output(pin, gpio.LOW)
+    gpio.cleanup()
