@@ -3,7 +3,6 @@ import time
 import random
 from flask import Flask, render_template, request
 
-app=Flask(__name__)
 gpio.setmode(gpio.BCM)
 
 # Store the pins that we will work with
@@ -16,6 +15,8 @@ pins = {
 for pin in pins:
     gpio.setup(pin, gpio.OUT)
     gpio.setup(pin, gpio.LOW)
+
+app=Flask(__name__)
 
 # Set up flask to serve html
 @app.route("/<my_pin>/<my_action>")
@@ -47,3 +48,6 @@ def blink_uncontrollably(delay_factor):
             time.sleep(random.random()/delay_factor)
             gpio.output(pin, gpio.LOW)
     gpio.cleanup()
+
+if __name__ == '__main__':
+    app.run(debug=True,host='0.0.0.0')
