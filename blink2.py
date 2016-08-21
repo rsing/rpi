@@ -6,15 +6,18 @@ from flask import Flask, render_template, request
 app=Flask(__name__)
 gpio.setmode(gpio.BCM)
 
+# Store the pins that we will work with
 pins = {
     3: {'name': 'GPIO 02', 'state': gpio.LOW},
     2: {'name': 'GPIO 03', 'state': gpio.LOW}
     }
 
+# Setup the pins
 for pin in pins:
     gpio.setup(pin, gpio.OUT)
     gpio.setup(pin, gpio.LOW)
 
+# Blink uncontrollably
 for i in range(50):
     for pin in pins:
         time.sleep(random.random())
