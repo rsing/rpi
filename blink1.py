@@ -1,24 +1,36 @@
 import RPi.GPIO as gpio
 import time
 import random
-from flask import Flask
 
-app=Flask(__name__)
-gpio.setmode(gpio.BCM)
 
-pins = {
-    3: {'name': 'GPIO 02', 'state': gpio.LOW},
-    2: {'name': 'GPIO 03', 'state': gpio.LOW}
-    }
+def setup_pi(pins):
+	gpio.setmode(gpio.BCM)
+	for pin in pins:
+		gpio.setup(pin, gpio.OUT)
 
-for pin in pins:
-    gpio.setup(pin, gpio.OUT)
-    gpio.setup(pin, gpio.LOW)
+def blink(pins):
+	for pin in pins:
+		time.sleep(random.random())
+		gpio.output(pin, gpio.HIGH)
+	for pin in pins:
+		time.sleep(random.random())
+		gpio.output(pin, gpio.LOW)
 
-for i in range(50):
-    for pin in pins:
-        time.sleep(random.random())
-        gpio.output(pin, gpio.HIGH)
-    for pin in pins:
-        time.sleep(random.random())
-        gpio.output(pin, gpio.LOW)
+def cleanup():
+	gpio.cleanup()
+
+
+if __name__ == '__main__':
+	pins = {
+		4: {'name': 'GPIO 02', 'state': gpio.LOW},
+		14: {'name': 'GPIO 03', 'state': gpio.LOW}
+	}
+	setup_pi(pins)
+	try:
+		while True:
+			blink(pins)
+	except KeyboardInterrupt:
+		print "Interrupt!"
+	finally:
+		print "Cleaning up..."
+		cleanup()
